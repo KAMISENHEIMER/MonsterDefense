@@ -6,7 +6,7 @@ public class Enemy1 : MonoBehaviour
 {
     const int movingSpeed = 1;
     Rigidbody2D rb;
-    int health;
+    public int health;
 
     // Start is called before the first frame update
     void Start()
