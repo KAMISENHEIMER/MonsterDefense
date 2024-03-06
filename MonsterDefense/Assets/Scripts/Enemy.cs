@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1 : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    const int movingSpeed = 1;
     Rigidbody2D rb;
-    public int health;
+    public float health;
+    public float speed;
+
+    Enemy(float health, float speed, float height){ // constructor
+        this.health = health;
+        this.speed = speed;
+        gameObject.transform.position = new Vector2(10, height);
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent <Rigidbody2D>();
-        rb.velocity = new Vector2(movingSpeed, 0);
+        rb.velocity = new Vector2(speed, 0);
         health = 100;
     }
 
