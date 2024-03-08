@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e9669c45982ca4c9b398f1d676b16e, type: 3}
   m_Name: Goblin
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  speed: 0
+  maxHealth: 5
+  speed: 2
