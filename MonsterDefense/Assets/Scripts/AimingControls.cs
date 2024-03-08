@@ -4,28 +4,50 @@ using UnityEngine;
 
 public class WeaponAiming : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     public GameObject particle;
+    public Camera screen;
+    
+    // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    Vector3 startPosition;
+    Vector3 endPosition;
+    Vector3 worldStartPosition;
+    Vector3 worldEndPosition;
+    
     // Update is called once per frame
     void Update()
     {
-        //Got from Unity Docs, will play around with later
+        //creates visual indication of where your fingers have touched
         foreach(Touch touch in Input.touches)
         {
             if (touch.phase == TouchPhase.Began)
             {
-                // Construct a ray from the current touch coordinates
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                if (Physics.Raycast(ray))
-                {
-                    // Create a particle if hit
-                    Instantiate(particle, transform.position, transform.rotation);
-                }
+                startPosition = touch.position;
+            } 
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                endPosition = touch.position;
+            }
+
+            if (startPosition!=Vector3.zero && endPosition!=Vector3.zero)
+            {
+                worldStartPosition = screen.ScreenToWorldPoint(startPosition);
+                worldEndPosition = screen.ScreenToWorldPoint(endPosition);
+                worldStartPosition.z = 0;
+                worldEndPosition.z = 0;
+                Instantiate(particle, worldStartPosition, Quaternion.identity);
+                Instantiate(particle, worldEndPosition, Quaternion.identity);
+                
+                Debug.DrawLine(worldStartPosition,worldEndPosition);
+                
+                Debug.Log("LINE MADE");
+                startPosition=Vector3.zero;
+                endPosition=Vector3.zero;
             }
         }
     }
